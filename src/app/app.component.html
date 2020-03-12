@@ -1,0 +1,33 @@
+<div class="alert alert-success" role="alert">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-10"> 
+          <h3> Lista de Compras </h3>
+        </div>
+
+        <div class="col-2"> 
+          <button type="button" class="btn btn-warning" (click)="addNivel()"> 
+          <img class="img" src="assets/img/plus.png">
+            Adicionar Nível 
+          </button>  
+        </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row" *ngFor="let nivel of niveis">
+      <div class="col-3">
+        <img class="img" src="assets/img/folder.png"> {{nivel.des}}
+      </div>
+    <div class="col-1"></div>
+    <div class="col-1">
+        <img class="img" src="assets/img/pen.png" (click)="ediNivel()">
+        &nbsp;
+        <img class="img" src="assets/img/trash-alt.png" (click)="delNivel(nivel.des)">
+    </div>
+  </div>
+</div>
