@@ -1,0 +1,84 @@
+<!-- Cabecalho -->
+<div class="alert alert-info" role="alert">
+  <div class="container">
+    <div class="row">
+      <div class="col-10">
+        <h3> {{title}} </h3>
+      </div>
+      <div class="col-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#actionNiveis" (click)='cadNivelAction()'>
+          <img class="img" src="assets/img/plus.png">
+          Adicionar Nível
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensagem de Sucesso -->
+<div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="success">
+  {{success}}
+</div>
+
+<!-- Mensagem de Erro -->
+<div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<!-- Exibo os niveis cadastrados -->
+<div class="container">
+  <div class="row" *ngFor="let nivel of niveis; index as i">
+      <div class="col-2">
+        <img class="img" src="assets/img/folder.png"> {{nivel.des}}
+      </div>
+    <div class="col-1"></div>
+    <div class="col-1">
+        <img class="img" src="assets/img/pen.png" data-toggle="modal" data-target="#actionNiveis" (click)='ediNivelAction(nivel.des, i)'>
+        &nbsp;
+        <img class="img" src="assets/img/trash-alt.png" data-toggle="modal" data-target="#actionNiveis" (click)='delNivelAction(nivel.des, i)'>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de Ações -->
+<form name="form" id="form">
+  <div class="modal fade" id="actionNiveis" tabindex="-1" role="dialog" aria-labelledby="actionNiveisLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="actionNiveisLabel">
+            <img class="img" src="assets/img/plus.png">
+            {{acao}} Nível
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group" *ngIf="acao != 'Deletar'">
+          <label for="exampleInputEmail1">Nome</label>
+          <input type="text" name="descricao" class="form-control form-control-sm" id="descricao" [(ngModel)]="descricao" aria-describedby="descricaoHelp">
+          <small id="descricaoHelp" class="form-text text-muted">Digite o Nome do Nível</small>
+        </div>
+
+        <div class="form-group" *ngIf="acao === 'Deletar'">
+            Deseja Deletar o Nível {{nivel}}?
+          </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        <button type="reset" class="btn btn-primary" data-dismiss="modal" (click)='cadNivelForm()' *ngIf="acao === 'Cadastrar'"> Salvar</button>
+        <button type="reset" class="btn btn-primary" data-dismiss="modal" (click)='ediNivelForm(id)' *ngIf="acao === 'Editar'">  Editar</button>
+        <button type="reset" class="btn btn-primary" data-dismiss="modal" (click)='delNivelForm(id)' *ngIf="acao === 'Deletar'"> Deletar</button>
+
+      </div>
+      </div>
+    </div>
+  </div>
+</form>
